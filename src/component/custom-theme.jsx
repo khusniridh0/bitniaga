@@ -2,14 +2,14 @@ const CustomTheme = () => {
     return (
         <div className="theme-customizer">
             <div className="customizer-handle">
-                <a href="javascript:void(0);" className="cutomizer-open-trigger bg-primary">
+                <a href="#" className="cutomizer-open-trigger bg-primary">
                     <i className="feather-settings" />
                 </a>
             </div>
             <div className="customizer-sidebar-wrapper">
                 <div className="customizer-sidebar-header px-4 ht-80 border-bottom d-flex align-items-center justify-content-between">
                     <h5 className="mb-0">Theme Settings</h5>
-                    <a href="javascript:void(0);" className="cutomizer-close-trigger d-flex">
+                    <a href="#" className="cutomizer-close-trigger d-flex">
                         <i className="feather-x" />
                     </a>
                 </div>
@@ -149,10 +149,10 @@ const CustomTheme = () => {
                     <div className="ps__rail-x" style={{ left: 0, bottom: 0 }}><div className="ps__thumb-x" tabIndex={0} style={{ left: 0, width: 0 }} /></div><div className="ps__rail-y" style={{ top: 0, height: 828, right: 0 }}><div className="ps__thumb-y" tabIndex={0} style={{ top: 0, height: 755 }} /></div></div>
                 <div className="customizer-sidebar-footer px-4 ht-60 border-top d-flex align-items-center gap-2">
                     <div className="flex-fill w-50">
-                        <a href="javascript:void(0);" className="btn btn-danger" data-style="reset-all-common-style">Reset</a>
+                        <a href="#" className="btn btn-danger" data-style="reset-all-common-style">Reset</a>
                     </div>
                     <div className="flex-fill w-50">
-                        <a href="javascript:void(0);" className="btn btn-primary">Download</a>
+                        <a href="#" className="btn btn-primary">Download</a>
                     </div>
                 </div>
             </div>

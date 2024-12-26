@@ -7,6 +7,7 @@ import './../public/vendors/css/daterangepicker.min.css'
 import './../public/css/theme.min.css'
 
 const Home = lazy(() => import('./pages/home'));
+const Keuangan = lazy(() => import('./pages/home/keuangan'));
 const Pelanggan = lazy(() => import('./pages/pelanggan'));
 const PelangganForm = lazy(() => import('./pages/pelanggan/form'));
 const Pembayaran = lazy(() => import('./pages/pesanan'));
@@ -20,6 +21,7 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/keuangan" element={<Keuangan />} />
           <Route path="/pelanggan" element={<Pelanggan />} />
           <Route path="/pelanggan/form" element={<PelangganForm />} />
           <Route path="/pelanggan/form/:id" element={<Pelanggan />} />

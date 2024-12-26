@@ -6417,11 +6417,13 @@ ul#checklist li .close:hover {
     box-shadow: 0 4px 24px 0 rgba(62, 57, 107, .18)
 }
 
+div:where(.swal2-container) .swal2-timer-progress-bar-container {
+    position: unset !important;
+}
+
 .swal2-container .swal2-popup.swal2-toast .swal2-title {
     color: #283c50;
-    margin: auto 15px;
-    font-size: 13px !important;
-    font-weight: 600 !important
+    font-size: 16px !important;
 }
 
 .swal2-container .swal2-timer-progress-bar {

@@ -3,21 +3,22 @@ import Dashboard from "../../layouts/dashboard";
 import Swal from "sweetalert2";
 
 const Form = () => {
-
     const alert = () => {
         Swal.mixin({
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            buttonsStyling: false
+        }).fire({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
             timerProgressBar: true,
-            onOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-            }
-        }).fire({
-            icon: 'success',
-            title: 'Action Executed Successfully'
+
+            timer: 3000,
+            title: "Action Execute Successfully",
+            icon: "success"
         });
     };
 
@@ -34,6 +35,7 @@ const Form = () => {
                     </ul>
                 </div>
             </div>
+
             <div className="main-content">
                 <div className="row">
                     <div className="col-12">
@@ -41,16 +43,16 @@ const Form = () => {
                             <div className="card-header p-0">
                                 <ul className="nav nav-tabs flex-wrap w-100 text-center customers-nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item flex-fill border-top" role="presentation">
-                                        <a href="javascript:void(0);" className="nav-link active" data-bs-toggle="tab" data-bs-target="#profil" role="tab">Profil</a>
+                                        <a href="#" className="nav-link active" data-bs-toggle="tab" data-bs-target="#profil" role="tab">Profil</a>
                                     </li>
                                     <li className="nav-item flex-fill border-top" role="presentation">
-                                        <a href="javascript:void(0);" className="nav-link" data-bs-toggle="tab" data-bs-target="#product" role="tab">Produk</a>
+                                        <a href="#" className="nav-link" data-bs-toggle="tab" data-bs-target="#product" role="tab">Produk</a>
                                     </li>
                                     <li className="nav-item flex-fill border-top" role="presentation">
-                                        <a href="javascript:void(0);" className="nav-link" data-bs-toggle="tab" data-bs-target="#order" role="tab">Pemesanan</a>
+                                        <a href="#" className="nav-link" data-bs-toggle="tab" data-bs-target="#order" role="tab">Pemesanan</a>
                                     </li>
                                     <li className="nav-item flex-fill border-top" role="presentation">
-                                        <a href="javascript:void(0);" className="nav-link" data-bs-toggle="tab" data-bs-target="#PPPoE" role="tab">PPPoE</a>
+                                        <a href="#" className="nav-link" data-bs-toggle="tab" data-bs-target="#PPPoE" role="tab">PPPoE</a>
                                     </li>
                                 </ul>
                             </div>
@@ -255,7 +257,7 @@ const Form = () => {
                                                 <span className="d-block mb-2">Password Information:</span>
                                                 <span className="fs-12 fw-normal text-muted text-truncate-1-line">You can only change your password twice within 24 hours! </span>
                                             </h5>
-                                            <a href="javascript:void(0);" className="btn btn-sm btn-light-brand">Reset</a>
+                                            <a href="#" className="btn btn-sm btn-light-brand">Reset</a>
                                         </div>
                                         <div className="row mb-4 align-items-center">
                                             <div className="col-lg-4">
@@ -303,7 +305,7 @@ const Form = () => {
                                                 <span className="d-block mb-2">Security preferences:</span>
                                                 <span className="fs-12 fw-normal text-muted text-truncate-1-line">Keep your account more secure with following preferences. </span>
                                             </h5>
-                                            <a href="javascript:void(0);" className="btn btn-sm btn-light-brand">Check Auth</a>
+                                            <a href="#" className="btn btn-sm btn-light-brand">Check Auth</a>
                                         </div>
                                         <div className="hstack justify-content-between p-4 mb-3 border border-dashed border-gray-3 rounded-1">
                                             <div className="hstack me-4">
@@ -311,7 +313,7 @@ const Form = () => {
                                                     <i className="feather-eye" />
                                                 </div>
                                                 <div className="ms-4">
-                                                    <a href="javascript:void(0);" className="fw-bold mb-1 text-truncate-1-line">Enable 2-step authentication</a>
+                                                    <a href="#" className="fw-bold mb-1 text-truncate-1-line">Enable 2-step authentication</a>
                                                     <div className="fs-12 text-muted text-truncate-1-line">Protects you against password theft by requesting an authentication code via SMS on every login.</div>
                                                 </div>
                                             </div>
@@ -326,7 +328,7 @@ const Form = () => {
                                                     <i className="feather-shield" />
                                                 </div>
                                                 <div className="ms-4">
-                                                    <a href="javascript:void(0);" className="fw-bold mb-1 text-truncate-1-line">Ask to change password on every 6 months</a>
+                                                    <a href="#" className="fw-bold mb-1 text-truncate-1-line">Ask to change password on every 6 months</a>
                                                     <div className="fs-12 text-muted text-truncate-1-line">A simple but an effective way to be protected against data leaks and password theft.</div>
                                                 </div>
                                             </div>

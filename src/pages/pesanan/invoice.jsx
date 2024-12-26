@@ -1,7 +1,27 @@
 import { Link } from "react-router-dom";
 import Dashboard from "../../layouts/dashboard";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { useRef } from "react";
 
 const Form = () => {
+    const printInvoice = useRef()
+
+    const handlePrint = () => {
+        const fileName = `Invoice.pdf`
+        html2canvas(printInvoice.current).then(canvas => {
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            })
+
+            pdf.addImage(canvas.toDataURL('img/webp', 2.0), 'WEBP', 0, 0, pdf.internal.pageSize.getWidth(), 0)
+            pdf.save(fileName);
+        })
+    }
+
+
     return (
         <Dashboard>
             <div className="page-header">
@@ -24,29 +44,25 @@ const Form = () => {
                                 <div>
                                     <h2 className="fs-16 fw-700 text-truncate-1-line mb-0 mb-sm-1">Invoice Preview</h2>
                                 </div>
-                                <div className="d-flex align-items-center justify-content-center">
-                                    <a href="javascript:void(0)" className="d-flex me-1" data-alert-target="invoicSendMessage">
+                                <div className="d-flex">
+                                    <button type="button" className="bg-transparent border-0 p-2">
                                         <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Send Invoice">
                                             <i className="feather feather-send" />
                                         </div>
-                                    </a>
-                                    <a href="javascript:void(0)" className="d-flex me-1 printBTN">
-                                        <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Print Invoice"><i className="feather feather-printer" /></div>
-                                    </a>
-                                    <a href="javascript:void(0)" className="d-flex me-1">
-                                        <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Add Payment"><i className="feather feather-dollar-sign" /></div>
-                                    </a>
-                                    <a href="javascript:void(0)" className="d-flex me-1 file-download">
-                                        <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Download Invoice"><i className="feather feather-download" /></div>
-                                    </a>
-                                    <a href="invoice-create.html" className="d-flex me-1">
+                                    </button>
+                                    <button type="button" className="bg-transparent border-0 p-2" onClick={handlePrint}>
+                                        <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Download Invoice">
+                                            <i className="feather feather-download" />
+                                        </div>
+                                    </button>
+                                    <Link to="/pelanggan/form" className="bg-transparent border-0 p-2">
                                         <div className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit Invoice">
                                             <i className="feather feather-edit" />
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
-                            <div className="card-body p-0">
+                            <div className="card-body p-0" ref={printInvoice}>
                                 <div className="px-4 pt-4">
                                     <div className="d-sm-flex align-items-center justify-content-between">
                                         <div>
@@ -124,35 +140,35 @@ const Form = () => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a href="javascript:void(0)">Adata </a></td>
+                                                <td><a href="#">Adata </a></td>
                                                 <td>Modern &amp; Minimal Multipurpose Bootstrap Admin Dashboard</td>
                                                 <td>$50.00</td>
                                                 <td>10</td>
                                                 <td className="text-dark fw-semibold">$500.00</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="javascript:void(0)">Avesta </a></td>
+                                                <td><a href="#">Avesta </a></td>
                                                 <td>Multipurpose Bootstrap4 Admin Dashboard Template</td>
                                                 <td>$120.00</td>
                                                 <td>10</td>
                                                 <td className="text-dark fw-semibold">$1200.00</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="javascript:void(0)">Metrical </a></td>
+                                                <td><a href="#">Metrical </a></td>
                                                 <td>Multipurpose Bootstrap4 Admin Dashboard Template</td>
                                                 <td>$450.00</td>
                                                 <td>1</td>
                                                 <td className="text-dark fw-semibold">$450.00</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="javascript:void(0)">Avesta </a></td>
+                                                <td><a href="#">Avesta </a></td>
                                                 <td>Multipurpose Bootstrap4 Admin Dashboard Template</td>
                                                 <td>$120.00</td>
                                                 <td>10</td>
                                                 <td className="text-dark fw-semibold">$1200.00</td>
                                             </tr>
                                             <tr>
-                                                <td><a href="javascript:void(0)">Duralux </a></td>
+                                                <td><a href="#">Duralux </a></td>
                                                 <td>Admin Dashboard &amp; Webapps Template</td>
                                                 <td>$50.00</td>
                                                 <td>10</td>
@@ -204,7 +220,7 @@ const Form = () => {
 
                 </div>
             </div>
-        </Dashboard>
+        </Dashboard >
     )
 }
 

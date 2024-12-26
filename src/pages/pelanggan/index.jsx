@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Dashboard from "../../layouts/dashboard";
+import Swal from "sweetalert2";
 
 const dummyData = [
     {
@@ -45,6 +46,26 @@ const dummyData = [
 ]
 
 const Pelanggan = () => {
+
+    const alertConfirm = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Success!',
+                    'Action Execute Successfully',
+                    'success'
+                )
+            }
+        })
+    }
+
     return (
         <Dashboard>
             <div className="page-header">
@@ -103,11 +124,11 @@ const Pelanggan = () => {
                                                         <div className="dropdown">
                                                             <a href="#" data-bs-toggle="dropdown" data-bs-offset="-25,-15"><i className="feather-more-vertical" /></a>
                                                             <div className="dropdown-menu dropdown-menu-end">
-                                                                {user.status == 'Aktif' && <a href="#" className="dropdown-item"><i className="feather-eye-off" />Deactivate</a>}
-                                                                {user.status == 'Non-Aktif' && <a href="#" className="dropdown-item"><i className="feather-eye" />Activate</a>}
+                                                                {user.status == 'Aktif' && <button type="button" onClick={alertConfirm} className="dropdown-item"><i className="feather-eye-off" />Deactivate</button>}
+                                                                {user.status == 'Non-Aktif' && <button type="button" onClick={alertConfirm} className="dropdown-item"><i className="feather-eye" />Activate</button>}
 
                                                                 <a href="#" className="dropdown-item"><i className="feather-edit-2" />Edit</a>
-                                                                <a href="#" className="dropdown-item"><i className="feather-trash-2" />Delete</a>
+                                                                <button type="button" className="dropdown-item" onClick={alertConfirm}><i className="feather-trash-2" />Delete</button>
                                                             </div>
                                                         </div>
                                                     </td>

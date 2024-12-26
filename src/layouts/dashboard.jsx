@@ -17,9 +17,9 @@ const DashboardLayout = ({ children }) => {
                         <span>Copyright ©</span>
                     </p>
                     <div className="d-flex align-items-center gap-4">
-                        <a href="javascript:void(0);" className="fs-11 fw-semibold text-uppercase">Help</a>
-                        <a href="javascript:void(0);" className="fs-11 fw-semibold text-uppercase">Terms</a>
-                        <a href="javascript:void(0);" className="fs-11 fw-semibold text-uppercase">Privacy</a>
+                        <a href="#" className="fs-11 fw-semibold text-uppercase">Help</a>
+                        <a href="#" className="fs-11 fw-semibold text-uppercase">Terms</a>
+                        <a href="#" className="fs-11 fw-semibold text-uppercase">Privacy</a>
                     </div>
                 </footer>
 
