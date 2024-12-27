@@ -1,22 +1,187 @@
 import { useEffect } from "react";
 import DashboardLayout from "../../layouts/dashboard";
-import ApexCharts from "apexcharts";
+import ApexCharts from 'apexcharts'
 import { Link } from "react-router-dom";
+
 
 const Home = () => {
 
     const chart = () => {
-        new ApexCharts(document.querySelector("#visitors-overview-statistics-chart"), {
+
+        new ApexCharts(document.querySelector("#total-sales-color-graph"), {
             chart: {
-                height: 370,
                 type: "area",
+                height: 150,
+                sparkline: {
+                    enabled: !0
+                }
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            colors: ["#93a9ff"],
+            fill: {
+                type: "solid",
+                opacity: .4
+            },
+            stroke: {
+                curve: "smooth",
+                width: 3
+            },
+            series: [{
+                name: "Total Sales",
+                data: [20, 10, 18, 12, 25, 10, 20]
+            }],
+            yaxis: {
+                min: 0,
+                max: 30
+            },
+            tooltip: {
+                theme: "dark",
+                y: {
+                    formatter: function (e) {
+                        return +e + "K"
+                    }
+                },
+                style: {
+                    fontSize: "12px",
+                    fontFamily: "Inter"
+                }
+            }
+        }).render()
+
+        new ApexCharts(document.querySelector("#leads-overview-donut"), {
+            chart: {
+                width: 328,
+                type: "donut"
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            series: [20, 15, 10, 18, 10, 15, 16, 14, 10],
+            labels: ["New", "Contacted", "Qualified", "Working", "Customer", "Proposal", "Leads", "Prograss", "Others"],
+            colors: ["#3454d1", "#1565c0", "#1976d2", "#1e88e5", "#2196f3", "#42a5f5", "#64b5f6", "#90caf9", "#aad6fa"],
+            stroke: {
+                width: 0,
+                lineCap: "round"
+            },
+            legend: {
+                show: !1,
+                position: "bottom",
+                fontFamily: "Inter",
+                fontWeight: 500,
+                labels: {
+                    colors: "#A0ACBB",
+                    fontFamily: "Inter"
+                },
+                markers: {
+                    width: 10,
+                    height: 10
+                },
+                itemMargin: {
+                    horizontal: 20,
+                    vertical: 5
+                }
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: "85%",
+                        labels: {
+                            show: !1,
+                            name: {
+                                show: !1,
+                                fontSize: "16px",
+                                colors: "#A0ACBB",
+                                fontFamily: "Inter"
+                            },
+                            value: {
+                                show: !1,
+                                fontSize: "30px",
+                                fontFamily: "Inter",
+                                color: "#A0ACBB",
+                                formatter: function (e) {
+                                    return e
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            responsive: [{
+                breakpoint: 380,
+                options: {
+                    chart: {
+                        width: 280
+                    },
+                    legend: {
+                        show: !1
+                    }
+                }
+            }],
+            tooltip: {
+                y: {
+                    formatter: function (e) {
+                        return +e + "K"
+                    }
+                },
+                style: {
+                    colors: "#A0ACBB",
+                    fontFamily: "Inter"
+                }
+            }
+        }).render()
+
+        new ApexCharts(document.querySelector("#payment-records-chart"), {
+            chart: {
+                height: 380,
+                width: "100%",
                 stacked: !1,
                 toolbar: {
                     show: !1
                 }
             },
+            stroke: {
+                width: [1, 2, 3],
+                curve: "smooth",
+                lineCap: "round"
+            },
+            plotOptions: {
+                bar: {
+                    endingShape: "rounded",
+                    columnWidth: "30%"
+                }
+            },
+            colors: ["#3454d1", "#a2acc7", "#E1E3EA"],
+            series: [{
+                name: "Payment Rejected",
+                type: "bar",
+                data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 21]
+            }, {
+                name: "Payment Completed",
+                type: "line",
+                data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43, 41]
+            }, {
+                name: "Awaiting Payment",
+                type: "bar",
+                data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43, 56]
+            }],
+            fill: {
+                opacity: [.85, .25, 1, 1],
+                gradient: {
+                    inverseColors: !1,
+                    shade: "light",
+                    type: "vertical",
+                    opacityFrom: .5,
+                    opacityTo: .1,
+                    stops: [0, 100, 100, 100]
+                }
+            },
+            markers: {
+                size: 0
+            },
             xaxis: {
-                categories: ["JAN/22", "FEB/22", "MAR/22", "APR/22", "MAY/22", "JUN/22", "JUL/22"],
+                categories: ["JAN/23", "FEB/23", "MAR/23", "APR/23", "MAY/23", "JUN/23", "JUL/23", "AUG/23", "SEP/23", "OCT/23", "NOV/23", "DEC/23"],
                 axisBorder: {
                     show: !1
                 },
@@ -25,8 +190,8 @@ const Home = () => {
                 },
                 labels: {
                     style: {
-                        fontSize: "11px",
-                        colors: "#64748b"
+                        fontSize: "10px",
+                        colors: "#A0ACBB"
                     }
                 }
             },
@@ -35,427 +200,372 @@ const Home = () => {
                     formatter: function (e) {
                         return +e + "K"
                     },
-                    offsetX: -22,
+                    offsetX: -5,
                     offsetY: 0,
                     style: {
-                        fontSize: "11px",
-                        color: "#64748b"
+                        color: "#A0ACBB"
                     }
                 }
             },
-            stroke: {
-                curve: "smooth",
-                width: [1, 1, 1, 1],
-                dashArray: [3, 3, 3, 3],
-                lineCap: "round"
-            },
             grid: {
-                padding: {
-                    left: 0,
-                    right: 0
+                xaxis: {
+                    lines: {
+                        show: !1
+                    }
                 },
-                strokeDashArray: 3,
-                borderColor: "#ebebf3",
-                row: {
-                    colors: ["#ebebf3", "transparent"],
-                    opacity: .02
+                yaxis: {
+                    lines: {
+                        show: !1
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (e) {
+                        return +e + "K"
+                    }
+                },
+                style: {
+                    fontSize: "12px",
+                    fontFamily: "Inter"
                 }
             },
             legend: {
-                show: !1
+                show: !1,
+                labels: {
+                    fontSize: "12px",
+                    colors: "#A0ACBB"
+                },
+                fontSize: "12px",
+                fontFamily: "Inter"
+            }
+        }).render()
+
+        new ApexCharts(document.querySelector("#task-completed-area-chart"), {
+            series: [{
+                name: "Task Completed",
+                data: [44, 55, 41, 60, 52, 66, 51]
+            }],
+            chart: {
+                type: "area",
+                height: 100,
+                toolbar: {
+                    show: !1
+                },
+                sparkline: {
+                    enabled: !0
+                }
             },
-            colors: ["#3454d1", "#25b865", "#d13b4c"],
-            dataLabels: {
-                enabled: !1
+            stroke: {
+                width: 2,
+                curve: "smooth"
             },
             fill: {
                 type: "gradient",
                 gradient: {
                     shadeIntensity: 1,
-                    opacityFrom: .4,
-                    opacityTo: .3,
+                    opacityFrom: .2,
+                    opacityTo: .75,
                     stops: [0, 90, 100]
                 }
             },
-            series: [{
-                name: "Unique Visitors",
-                data: [20, 45, 10, 75, 35, 80, 40],
-                type: "area"
-            }, {
-                name: "Unique Page Views",
-                data: [25, 60, 20, 90, 45, 100, 55],
-                type: "area"
-            }, {
-                name: "Unique Impression",
-                data: [30, 40, 15, 70, 30, 85, 45],
-                type: "area"
-            }],
-            tooltip: {
-                y: {
-                    formatter: function (e) {
-                        return +e + "K"
-                    }
-                },
-                style: {
-                    fontSize: "12px",
-                    fontFamily: "Inter"
-                }
-            }
-        }).render()
-
-        new ApexCharts(document.querySelector("#bounce-rate"), {
-            chart: {
-                type: "area",
-                height: 80,
-                sparkline: {
-                    enabled: !0
-                }
+            colors: ["#3454d1"],
+            grid: {
+                show: !1
             },
-            series: [{
-                name: "Bounce Rate (Avg)",
-                data: [25, 60, 20, 90, 45, 100, 45, 100, 55]
-            }],
-            stroke: {
-                width: 1,
-                curve: "smooth"
-            },
-            fill: {
-                opacity: [.85, .25, 1, 1],
-                gradient: {
-                    inverseColors: !1,
-                    shade: "light",
-                    type: "vertical",
-                    opacityFrom: .5,
-                    opacityTo: .1,
-                    stops: [0, 100, 100, 100]
-                }
-            },
-            yaxis: {
-                min: 0
-            },
-            colors: ["#64748a"]
-        }).render()
-
-        new ApexCharts(document.querySelector("#page-views"), {
-            chart: {
-                type: "area",
-                height: 80,
-                sparkline: {
-                    enabled: !0
-                }
-            },
-            series: [{
-                name: "Page Views (Avg)",
-                data: [25, 60, 20, 90, 45, 100, 45, 100, 55]
-            }],
-            stroke: {
-                width: 1,
-                curve: "smooth"
-            },
-            fill: {
-                opacity: [.85, .25, 1, 1],
-                gradient: {
-                    inverseColors: !1,
-                    shade: "light",
-                    type: "vertical",
-                    opacityFrom: .5,
-                    opacityTo: .1,
-                    stops: [0, 100, 100, 100]
-                }
-            },
-            yaxis: {
-                min: 0
-            },
-            colors: ["#3454d1"]
-        }).render()
-
-        new ApexCharts(document.querySelector("#site-impressions"), {
-            chart: {
-                type: "area",
-                height: 80,
-                sparkline: {
-                    enabled: !0
-                }
-            },
-            series: [{
-                name: "Site Impression (Avg)",
-                data: [25, 60, 20, 90, 45, 100, 45, 100, 55]
-            }],
-            stroke: {
-                width: 1,
-                curve: "smooth"
-            },
-            fill: {
-                opacity: [.85, .25, 1, 1],
-                gradient: {
-                    inverseColors: !1,
-                    shade: "light",
-                    type: "vertical",
-                    opacityFrom: .5,
-                    opacityTo: .1,
-                    stops: [0, 100, 100, 100]
-                }
-            },
-            yaxis: {
-                min: 0
-            },
-            colors: ["#e49e3d"]
-        }).render()
-
-        new ApexCharts(document.querySelector("#conversions-rate"), {
-            chart: {
-                type: "area",
-                height: 80,
-                sparkline: {
-                    enabled: !0
-                }
-            },
-            series: [{
-                name: "Site Impression (Avg)",
-                data: [25, 60, 20, 90, 45, 100, 45, 100, 55]
-            }],
-            stroke: {
-                width: 1,
-                curve: "smooth"
-            },
-            fill: {
-                opacity: [.85, .25, 1, 1],
-                gradient: {
-                    inverseColors: !1,
-                    shade: "light",
-                    type: "vertical",
-                    opacityFrom: .5,
-                    opacityTo: .1,
-                    stops: [0, 100, 100, 100]
-                }
-            },
-            yaxis: {
-                min: 0
-            },
-            colors: ["#25b865"]
-        }).render()
-
-        new ApexCharts(document.querySelector("#campaign-alytics-bar-chart"), {
-            chart: {
-                type: "bar",
-                height: 370,
-                toolbar: {
-                    show: !1
-                }
-            },
-            series: [{
-                name: "Online Campaign",
-                data: [44, 55, 41, 64, 22, 43, 21, 41, 64, 22, 43, 21]
-            }, {
-                name: "Offline Campaign",
-                data: [53, 32, 33, 52, 13, 44, 32, 33, 52, 13, 44, 32]
-            }],
-            plotOptions: {
-                bar: {
-                    horizontal: !1,
-                    endingShape: "rounded",
-                    columnWidth: "30%"
-                }
+            legend: {
+                show: !1
             },
             dataLabels: {
-                enabled: !1,
-                offsetX: -6,
-                style: {
-                    fontSize: "12px",
-                    colors: ["#fff"]
-                }
+                enabled: !1
             },
-            stroke: {
-                show: !1,
-                width: 1,
-                colors: ["#fff"]
-            },
-            colors: ["#E1E3EA", "#3454d1"],
             xaxis: {
-                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                categories: ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAR"],
                 axisBorder: {
                     show: !1
                 },
                 axisTicks: {
                     show: !1
-                },
-                labels: {
-                    style: {
-                        colors: "#64748b",
-                        fontFamily: "Inter"
-                    }
                 }
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (e) {
-                        return +e + "K"
-                    },
-                    style: {
-                        color: "#64748b",
-                        fontFamily: "Inter"
-                    }
-                }
-            },
-            grid: {
-                strokeDashArray: 3,
-                borderColor: "#e9ecef"
             },
             tooltip: {
                 y: {
                     formatter: function (e) {
-                        return +e + "K"
+                        return +e + "Tasks"
                     }
                 },
                 style: {
-                    colors: "#64748b",
+                    fontSize: "12px",
+                    colors: "#A0ACBB",
                     fontFamily: "Inter"
-                }
-            },
-            legend: {
-                show: !1,
-                fontFamily: "Inter",
-                labels: {
-                    colors: "#64748b"
                 }
             }
         }).render()
 
-        new ApexCharts(document.querySelector("#social-radar-chart"), {
+        new ApexCharts(document.querySelector("#new-tasks-area-chart"), {
             series: [{
-                name: "Facebook",
-                data: [80, 50, 30, 40, 100, 20]
-            }, {
-                name: "Twitter",
-                data: [20, 30, 40, 80, 20, 80]
-            }, {
-                name: "Youtube",
-                data: [44, 76, 78, 13, 43, 10]
+                name: "New Tasks",
+                data: [44, 55, 41, 60, 52, 66, 51]
             }],
             chart: {
-                height: 376,
-                type: "radar",
+                type: "area",
+                height: 100,
                 toolbar: {
                     show: !1
+                },
+                sparkline: {
+                    enabled: !0
                 }
             },
-            colors: ["#3454D1", "#41B2C4", "#EA4D4D"],
-            xaxis: {
-                categories: ["Sun", "Mon", "Tue", "Wen", "Thu", "Fri"]
+            stroke: {
+                width: 2,
+                curve: "smooth"
             },
-            yaxis: {
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: .2,
+                    opacityTo: .75,
+                    stops: [0, 90, 100]
+                }
+            },
+            colors: ["#25b865"],
+            grid: {
                 show: !1
             },
-            stroke: {
-                show: !1,
-                width: .5
+            legend: {
+                show: !1
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            xaxis: {
+                categories: ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAR"],
+                axisBorder: {
+                    show: !1
+                },
+                axisTicks: {
+                    show: !1
+                }
             },
             tooltip: {
                 y: {
                     formatter: function (e) {
-                        return +e + "K"
+                        return +e + "Projects"
                     }
                 },
                 style: {
-                    colors: "#64748b",
+                    fontSize: "12px",
+                    colors: "#A0ACBB",
                     fontFamily: "Inter"
                 }
+            }
+        }).render()
+
+        new ApexCharts(document.querySelector("#project-done-area-chart"), {
+            series: [{
+                name: "Project Done",
+                data: [44, 55, 41, 60, 52, 66, 51]
+            }],
+            chart: {
+                type: "area",
+                height: 100,
+                toolbar: {
+                    show: !1
+                },
+                sparkline: {
+                    enabled: !0
+                }
+            },
+            stroke: {
+                width: 2,
+                curve: "smooth"
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: .2,
+                    opacityTo: .75,
+                    stops: [0, 90, 100]
+                }
+            },
+            colors: ["#d13b4c"],
+            grid: {
+                show: !1
             },
             legend: {
-                show: !0,
-                height: 65,
-                offsetY: -35,
-                labels: {
-                    colors: "#64748b",
+                show: !1
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            xaxis: {
+                categories: ["SUN", "MON", "TUE", "WEN", "THU", "FRI", "SAR"],
+                axisBorder: {
+                    show: !1
+                },
+                axisTicks: {
+                    show: !1
+                }
+            },
+            tooltip: {
+                y: {
+                    formatter: function (e) {
+                        return +e + "Projects"
+                    }
+                },
+                style: {
+                    fontSize: "12px",
+                    colors: "#A0ACBB",
                     fontFamily: "Inter"
                 }
             }
         }).render()
     }
 
-    useEffect(() => chart(), [])
+    useEffect(() => { chart() }, [])
 
     return (
         <DashboardLayout>
             <div className="page-header">
                 <div className="page-header-left d-flex align-items-center">
-                    <div className="page-header-title">
-                        <h5 className="m-b-10">Alexandra Della</h5>
-                    </div>
+
                     <ul className="breadcrumb">
-                        <li className="breadcrumb-item"><Link to="/keuangan">Dashboard</Link></li>
-                        <li className="breadcrumb-item">Keuangan</li>
+                        <li className="breadcrumb-item"><Link to="/">Dashboard</Link></li>
+                        <li className="breadcrumb-item">OLT</li>
                     </ul>
                 </div>
 
             </div>
             <div className="main-content">
                 <div className="row">
-
-                    <div className="col-12">
+                    <div className="col-xxl-3 col-md-6">
                         <div className="card stretch stretch-full">
                             <div className="card-body">
-                                <div className="hstack justify-content-between mb-4 pb-">
-                                    <div>
-                                        <h5 className="mb-1">Email Reports</h5>
-                                        <span className="fs-12 text-muted">Email Campaign Reports</span>
+                                <div className="d-flex align-items-start justify-content-between mb-4">
+                                    <div className="d-flex gap-4 align-items-center">
+                                        <div className="avatar-text avatar-lg bg-gray-200">
+                                            <i className="feather-dollar-sign" />
+                                        </div>
+                                        <div>
+                                            <div className="fs-4 fw-bold text-dark">Rp 43.000.000</div>
+                                            <h3 className="fs-13 fw-semibold text-truncate-1-line">Pendapatan Bulan Ini</h3>
+                                        </div>
                                     </div>
-                                    <a href="javascript:void(0);" className="btn btn-light-brand">View Alls</a>
+                                    <a href="#" className>
+                                        <i className="feather-more-vertical" />
+                                    </a>
                                 </div>
-                                <div className="row">
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope fs-3 text-primary" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">50,545</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Total Email</p>
-                                            </div>
+                                <div className="pt-4">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <a href="#" className="fs-12 fw-medium text-muted text-truncate-1-line">Pendapatan Seharusnya</a>
+                                        <div className="w-100 text-end">
+                                            <span className="fs-12 text-dark">Rp 60.000.000</span>
+                                            <span className="fs-11 text-muted">(80%)</span>
                                         </div>
                                     </div>
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope-plus fs-3 text-warning" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">25,000</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Email Sent</p>
-                                            </div>
+                                    <div className="progress mt-2 ht-3">
+                                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '80%' }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-3 col-md-6">
+                        <div className="card stretch stretch-full">
+                            <div className="card-body">
+                                <div className="d-flex align-items-start justify-content-between mb-4">
+                                    <div className="d-flex gap-4 align-items-center">
+                                        <div className="avatar-text avatar-lg bg-gray-200">
+                                            <i className="feather-cast" />
+                                        </div>
+                                        <div>
+                                            <div className="fs-4 fw-bold text-dark">Rp 25.100.000</div>
+                                            <h3 className="fs-13 fw-semibold text-truncate-1-line">Pengeluaran Bulan Ini</h3>
                                         </div>
                                     </div>
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope-check fs-3 text-success" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">20,354</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Emails Delivered</p>
-                                            </div>
+                                    <a href="#" className>
+                                        <i className="feather-more-vertical" />
+                                    </a>
+                                </div>
+                                <div className="pt-4">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <a href="#" className="fs-12 fw-medium text-muted text-truncate-1-line">Pengeluaran bulan ini </a>
+                                        <div className="w-100 text-end">
+                                            <span className="fs-12 text-dark">Rp.25.100.000</span>
                                         </div>
                                     </div>
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope-open fs-3 text-indigo" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">12,422</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Emails Opened</p>
-                                            </div>
+                                    <div className="progress mt-2 ht-3">
+                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '100%' }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-3 col-md-6">
+                        <div className="card stretch stretch-full">
+                            <div className="card-body">
+                                <div className="d-flex align-items-start justify-content-between mb-4">
+                                    <div className="d-flex gap-4 align-items-center">
+                                        <div className="avatar-text avatar-lg bg-gray-200">
+                                            <i className="feather-briefcase" />
+                                        </div>
+                                        <div>
+                                            <div className="fs-4 fw-bold text-dark">Rp. 25.000.000</div>
+                                            <h3 className="fs-13 fw-semibold text-truncate-1-line">Pendapatan Dari Piutang</h3>
                                         </div>
                                     </div>
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope-heart fs-3 text-teal" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">6,248</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Emails Clicked</p>
-                                            </div>
+                                    <a href="#" className>
+                                        <i className="feather-more-vertical" />
+                                    </a>
+                                </div>
+                                <div className="pt-4">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <a href="#" className="fs-12 fw-medium text-muted text-truncate-1-line">Total Piutang </a>
+                                        <div className="w-100 text-end">
+                                            <span className="fs-12 text-dark">Rp.100.000.000</span>
+                                            <span className="fs-11 text-muted">(25%)</span>
                                         </div>
                                     </div>
-                                    <div className="col-xxl-2 col-lg-4 col-md-6">
-                                        <div className="card stretch stretch-full border border-dashed border-gray-5">
-                                            <div className="card-body rounded-3 text-center">
-                                                <i className="bi bi-envelope-slash fs-3 text-danger" />
-                                                <div className="fs-4 fw-bolder text-dark mt-3 mb-1">2,047</div>
-                                                <p className="fs-12 fw-medium text-muted text-spacing-1 mb-0 text-truncate-1-line">Emails Bounce</p>
-                                            </div>
+                                    <div className="progress mt-2 ht-3">
+                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-3 col-md-6">
+                        <div className="card stretch stretch-full">
+                            <div className="card-body">
+                                <div className="d-flex align-items-start justify-content-between mb-4">
+                                    <div className="d-flex gap-4 align-items-center">
+                                        <div className="avatar-text avatar-lg bg-gray-200">
+                                            <i className="feather-activity" />
                                         </div>
+                                        <div>
+                                            <div className="fs-4 fw-bold text-dark">Rp 2.500.000</div>
+                                            <h3 className="fs-13 fw-semibold text-truncate-1-line">Pengeluaran Purchase Order ( PO )</h3>
+                                        </div>
+                                    </div>
+                                    <a href="#" className>
+                                        <i className="feather-more-vertical" />
+                                    </a>
+                                </div>
+                                <div className="pt-4">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <a href="#" className="fs-12 fw-medium text-muted text-truncate-1-line">Budget Purchase Order (Juni)</a>
+                                        <div className="w-100 text-end">
+                                            <span className="fs-12 text-dark">Rp 5.000.000</span>
+                                            <span className="fs-11 text-muted">(50%)</span>
+                                        </div>
+                                    </div>
+                                    <div className="progress mt-2 ht-3">
+                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '50%' }} />
                                     </div>
                                 </div>
                             </div>
@@ -464,302 +574,17 @@ const Home = () => {
                     <div className="col-xxl-8">
                         <div className="card stretch stretch-full">
                             <div className="card-header">
-                                <h5 className="card-title">Visitors Overview</h5>
-                            </div>
-                            <div className="card-body custom-card-action">
-                                <div id="visitors-overview-statistics-chart" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-4">
-                        <div className="card stretch stretch-full">
-                            <div className="card-header">
-                                <h5 className="card-title">Browser States</h5>
+                                <h5 className="card-title">Payment Record</h5>
                             </div>
                             <div className="card-body custom-card-action p-0">
-                                <div className="table-responsive">
-                                    <table className="table table-hover mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-chrome fs-16 text-primary me-2" />
-                                                        <span>Google Chrome</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">90%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-success" style={{ width: '90%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-firefox-browser fs-16 text-warning me-2" />
-                                                        <span>Mozila Firefox</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">76%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-primary" style={{ width: '76%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-safari fs-16 text-info me-2" />
-                                                        <span>Apple Safari</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">50%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-warning" style={{ width: '50%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-edge fs-16 text-success me-2" />
-                                                        <span>Edge Browser</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">20%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-success" style={{ width: '20%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-opera fs-16 text-danger me-2" />
-                                                        <span>Opera mini</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">15%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-danger" style={{ width: '15%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-internet-explorer fs-16 text-teal me-2" />
-                                                        <span>Internet Explorer</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">12%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-teal" style={{ width: '12%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="javascript:void(0);">
-                                                        <i className="fa-brands fa-octopus-deploy fs-16 text-dark me-2" />
-                                                        <span>Others Browser</span>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <span className="text-end d-flex align-items-center m-0">
-                                                        <span className="me-3">6%</span>
-                                                        <span className="progress w-100 ht-5">
-                                                            <span className="progress-bar bg-dark" style={{ width: '6%' }} />
-                                                        </span>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <a href="javascript:void(0);" className="card-footer fs-11 fw-bold text-uppercase text-center">Explore Details</a>
-                        </div>
-                    </div>
-                    <div className="col-xxl-3 col-md-6">
-                        <div className="card stretch stretch-full">
-                            <div className="card-body p-0">
-                                <div className="d-flex justify-content-between p-4 mb-4">
-                                    <div>
-                                        <div className="fw-bold mb-2 text-dark text-truncate-1-line">Bounce Rate (Avg)</div>
-                                        <div className="fs-11 text-muted">VS 20.49% (Prev)</div>
-                                    </div>
-                                    <div className="text-end">
-                                        <div className="fs-24 fw-bold mb-2 text-dark"><span className="counter">78.65</span>%</div>
-                                        <div className="fs-11 text-success">(+ 22.85%)</div>
-                                    </div>
-                                </div>
-                                <div id="bounce-rate" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-3 col-md-6">
-                        <div className="card stretch stretch-full">
-                            <div className="card-body p-0">
-                                <div className="d-flex justify-content-between p-4 mb-4">
-                                    <div>
-                                        <div className="fw-bold mb-2 text-dark text-truncate-1-line">Page Views (Avg)</div>
-                                        <div className="fs-11 text-muted">VS 36.47% (Prev)</div>
-                                    </div>
-                                    <div className="text-end">
-                                        <div className="fs-24 fw-bold mb-2 text-dark"><span className="counter">86.37</span>%</div>
-                                        <div className="fs-11 text-danger">(- 34.25%)</div>
-                                    </div>
-                                </div>
-                                <div id="page-views" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-3 col-md-6">
-                        <div className="card stretch stretch-full">
-                            <div className="card-body p-0">
-                                <div className="d-flex justify-content-between p-4 mb-4">
-                                    <div>
-                                        <div className="fw-bold mb-2 text-dark text-truncate-1-line">Site Impressions (Avg)</div>
-                                        <div className="fs-11 text-muted">VS 43.67% (Prev)</div>
-                                    </div>
-                                    <div className="tx-right">
-                                        <div className="fs-24 fw-bold mb-2 text-dark"><span className="counter">67.53</span>%</div>
-                                        <div className="fs-11 text-success">(+ 42.72%)</div>
-                                    </div>
-                                </div>
-                                <div id="site-impressions" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-3 col-md-6">
-                        <div className="card stretch stretch-full">
-                            <div className="card-body p-0">
-                                <div className="d-flex justify-content-between p-4 mb-4">
-                                    <div>
-                                        <div className="fw-bold mb-2 text-dark text-truncate-1-line">Conversions Rate (Avg)</div>
-                                        <div className="fs-11 text-muted">VS 22.34% (Prev)</div>
-                                    </div>
-                                    <div className="tx-right">
-                                        <div className="fs-24 fw-bold mb-2 text-dark"><span className="counter">32.53</span>%</div>
-                                        <div className="fs-11 text-success">(+ 35.47%)</div>
-                                    </div>
-                                </div>
-                                <div id="conversions-rate" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-4">
-                        <div className="card stretch stretch-full">
-                            <div className="card-header">
-                                <h5 className="card-title">Goal Progress</h5>
-                                <div className="card-header-action">
-                                    <div className="card-header-btn">
-                                        <div data-bs-toggle="tooltip" title="Delete">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-danger" data-bs-toggle="remove"> </a>
-                                        </div>
-                                        <div data-bs-toggle="tooltip" title="Refresh">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-warning" data-bs-toggle="refresh"> </a>
-                                        </div>
-                                        <div data-bs-toggle="tooltip" title="Maximize/Minimize">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-success" data-bs-toggle="expand"> </a>
-                                        </div>
-                                    </div>
-                                    <div className="dropdown">
-                                        <a href="javascript:void(0);" className="avatar-text avatar-sm" data-bs-toggle="dropdown" data-bs-offset="25, 25">
-                                            <div data-bs-toggle="tooltip" title="Options">
-                                                <i className="feather-more-vertical" />
-                                            </div>
-                                        </a>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-at-sign" />New</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-calendar" />Event</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-bell" />Snoozed</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-trash-2" />Deleted</a>
-                                            <div className="dropdown-divider" />
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-settings" />Settings</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-life-buoy" />Tips &amp; Tricks</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-body custom-card-action">
-                                <div className="row g-4">
-                                    <div className="col-sm-6">
-                                        <div className="px-4 py-3 text-center border border-dashed rounded-3">
-                                            <div className="mx-auto mb-4">
-                                                <div className="goal-progress-1" />
-                                            </div>
-                                            <h2 className="fs-13 tx-spacing-1">Marketing Gaol</h2>
-                                            <div className="fs-11 text-muted text-truncate-1-line">$550/$1250 USD</div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="px-4 py-3 text-center border border-dashed rounded-3">
-                                            <div className="mx-auto mb-4">
-                                                <div className="goal-progress-2" />
-                                            </div>
-                                            <h2 className="fs-13 tx-spacing-1">Teams Goal</h2>
-                                            <div className="fs-11 text-muted text-truncate-1-line">$550/$1250 USD</div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="px-4 py-3 text-center border border-dashed rounded-3">
-                                            <div className="mx-auto mb-4">
-                                                <div className="goal-progress-3" />
-                                            </div>
-                                            <h2 className="fs-13 tx-spacing-1">Leads Goal</h2>
-                                            <div className="fs-11 text-muted text-truncate-1-line">$850/$950 USD</div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="px-4 py-3 text-center border border-dashed rounded-3">
-                                            <div className="mx-auto mb-4">
-                                                <div className="goal-progress-4" />
-                                            </div>
-                                            <h2 className="fs-13 tx-spacing-1">Revenue Goal</h2>
-                                            <div className="fs-11 text-muted text-truncate-1-line">$5,655/$12,500 USD</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <a href="javascript:void(0);" className="btn btn-primary">Generate Report</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xxl-8">
-                        <div className="card stretch stretch-full">
-                            <div className="card-header">
-                                <h5 className="card-title">Marketing Campaign</h5>
-                            </div>
-                            <div className="card-body custom-card-action p-0">
-                                <div id="campaign-alytics-bar-chart" />
+                                <div id="payment-records-chart" />
                             </div>
                             <div className="card-footer">
                                 <div className="row g-4">
                                     <div className="col-lg-3">
                                         <div className="p-3 border border-dashed rounded">
-                                            <div className="fs-12 text-muted mb-1">Reach</div>
-                                            <h6 className="fw-bold text-dark">5,486</h6>
+                                            <div className="fs-12 text-muted mb-1">Indomaret/Tokopedia</div>
+                                            <h6 className="fw-bold text-dark">Rp. 8.200.000</h6>
                                             <div className="progress mt-2 ht-3">
                                                 <div className="progress-bar bg-primary" role="progressbar" style={{ width: '81%' }} />
                                             </div>
@@ -767,8 +592,8 @@ const Home = () => {
                                     </div>
                                     <div className="col-lg-3">
                                         <div className="p-3 border border-dashed rounded">
-                                            <div className="fs-12 text-muted mb-1">Opened</div>
-                                            <h6 className="fw-bold text-dark">42.75%</h6>
+                                            <div className="fs-12 text-muted mb-1">Cash</div>
+                                            <h6 className="fw-bold text-dark">Rp 8.000.000</h6>
                                             <div className="progress mt-2 ht-3">
                                                 <div className="progress-bar bg-success" role="progressbar" style={{ width: '82%' }} />
                                             </div>
@@ -776,8 +601,8 @@ const Home = () => {
                                     </div>
                                     <div className="col-lg-3">
                                         <div className="p-3 border border-dashed rounded">
-                                            <div className="fs-12 text-muted mb-1">Clicked</div>
-                                            <h6 className="fw-bold text-dark">38.68%</h6>
+                                            <div className="fs-12 text-muted mb-1">Bank Transfer</div>
+                                            <h6 className="fw-bold text-dark">Rp 10.000.000</h6>
                                             <div className="progress mt-2 ht-3">
                                                 <div className="progress-bar bg-danger" role="progressbar" style={{ width: '68%' }} />
                                             </div>
@@ -785,8 +610,8 @@ const Home = () => {
                                     </div>
                                     <div className="col-lg-3">
                                         <div className="p-3 border border-dashed rounded">
-                                            <div className="fs-12 text-muted mb-1">Conversion</div>
-                                            <h6 className="fw-bold text-dark">16.68%</h6>
+                                            <div className="fs-12 text-muted mb-1">Virtual Account BCA</div>
+                                            <h6 className="fw-bold text-dark">Rp 7.500.000</h6>
                                             <div className="progress mt-2 ht-3">
                                                 <div className="progress-bar bg-dark" role="progressbar" style={{ width: '75%' }} />
                                             </div>
@@ -796,242 +621,135 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xxl-8">
-                        <div className="card stretch stretch-full">
-                            <div className="card-header">
-                                <h5 className="card-title">Project Remainders</h5>
-                                <div className="card-header-action">
-                                    <div className="card-header-btn">
-                                        <div data-bs-toggle="tooltip" title="Delete">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-danger" data-bs-toggle="remove"> </a>
+                    <div className="col-xxl-4">
+                        <div className="card stretch stretch-full overflow-hidden">
+                            <div className="bg-primary text-white">
+                                <div className="p-4">
+                                    <span className="badge bg-light text-primary text-dark float-end">12%</span>
+                                    <div className="text-start">
+                                        <h4 className="text-reset">30,569</h4>
+                                        <p className="text-reset m-0">Total Sales</p>
+                                    </div>
+                                </div>
+                                <div id="total-sales-color-graph" />
+                            </div>
+                            <div className="card-body">
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image avatar-lg p-2 rounded">
+                                            <img className="img-fluid" src="/images/brand/shopify.png" alt="image" />
                                         </div>
-                                        <div data-bs-toggle="tooltip" title="Refresh">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-warning" data-bs-toggle="refresh"> </a>
-                                        </div>
-                                        <div data-bs-toggle="tooltip" title="Maximize/Minimize">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-success" data-bs-toggle="expand"> </a>
+                                        <div>
+                                            <a href="#" className="d-block">Shopify eCommerce Store</a>
+                                            <span className="fs-12 text-muted">Development</span>
                                         </div>
                                     </div>
-                                    <div className="dropdown">
-                                        <a href="javascript:void(0);" className="avatar-text avatar-sm" data-bs-toggle="dropdown" data-bs-offset="25, 25">
-                                            <div data-bs-toggle="tooltip" title="Options">
-                                                <i className="feather-more-vertical" />
-                                            </div>
-                                        </a>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-at-sign" />New</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-calendar" />Event</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-bell" />Snoozed</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-trash-2" />Deleted</a>
-                                            <div className="dropdown-divider" />
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-settings" />Settings</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-life-buoy" />Tips &amp; Tricks</a>
+                                    <div>
+                                        <div className="fw-bold text-dark">$1200</div>
+                                        <div className="fs-12 text-end">6 Projects</div>
+                                    </div>
+                                </div>
+                                <hr className="border-dashed my-3" />
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image avatar-lg p-2 rounded">
+                                            <img className="img-fluid" src="/images/brand/app-store.png" alt="image" />
                                         </div>
+                                        <div>
+                                            <a href="#" className="d-block">iOS Apps Development</a>
+                                            <span className="fs-12 text-muted">Development</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="fw-bold text-dark">$1450</div>
+                                        <div className="fs-12 text-end">3 Projects</div>
+                                    </div>
+                                </div>
+                                <hr className="border-dashed my-3" />
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image avatar-lg p-2 rounded">
+                                            <img className="img-fluid" src="/images/brand/figma.png" alt="image" />
+                                        </div>
+                                        <div>
+                                            <a href="#" className="d-block">Figma Dashboard Design</a>
+                                            <span className="fs-12 text-muted">UI/UX Design</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="fw-bold text-dark">$1250</div>
+                                        <div className="fs-12 text-end">5 Projects</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body custom-card-action p-0">
-                                <div className="table-responsive">
-                                    <table className="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Remaining</th>
-                                                <th scope="col">Stage</th>
-                                                <th scope="col" className="text-end">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div className="hstack gap-2">
-                                                        <span className="wd-10 ht-10 bg-gray-400 rounded-circle d-inline-block me-2 lh-base" />
-                                                        <div className="border-3 border-start rounded ps-3">
-                                                            <a href="javascript:void(0);" className="mb-2 d-block">
-                                                                <span>CRM Dashboard Redesign</span>
-                                                            </a>
-                                                            <p className="fs-12 text-muted mb-0">Management of project under "Duralux" brand</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-soft-primary text-primary">In Prograss</span>
-                                                </td>
-                                                <td>
-                                                    <div data-time-countdown="countdown_1" />
-                                                </td>
-                                                <td>
-                                                    <div className="hstack gap-1">
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-gray-300 rounded-pill" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" className="avatar-text avatar-md ms-auto">
-                                                        <i className="feather-arrow-right" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className="hstack gap-2">
-                                                        <span className="wd-10 ht-10 bg-gray-400 rounded-circle d-inline-block me-2 lh-base" />
-                                                        <div className="border-3 border-start rounded ps-3">
-                                                            <a href="javascript:void(0);" className="mb-2 d-block">
-                                                                <span>Duralux CRM Admin Project</span>
-                                                            </a>
-                                                            <p className="fs-12 text-muted mb-0">Duralux CRM Dashbaord Project</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-soft-info text-info">Updading</span>
-                                                </td>
-                                                <td>
-                                                    <div data-time-countdown="countdown_2" />
-                                                </td>
-                                                <td>
-                                                    <div className="hstack gap-1">
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-gray-300 rounded-pill" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" className="avatar-text avatar-md ms-auto">
-                                                        <i className="feather-arrow-right" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className="hstack gap-2">
-                                                        <span className="wd-10 ht-10 bg-gray-400 rounded-circle d-inline-block me-2 lh-base" />
-                                                        <div className="border-3 border-start rounded ps-3">
-                                                            <a href="javascript:void(0);" className="mb-2 d-block">
-                                                                <span>Website Redesign for Nike</span>
-                                                            </a>
-                                                            <p className="fs-12 text-muted mb-0">Website Redesign for Nike</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-soft-danger text-danger">Upcoming</span>
-                                                </td>
-                                                <td>
-                                                    <div data-time-countdown="countdown_3" />
-                                                </td>
-                                                <td>
-                                                    <div className="hstack gap-1">
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-gray-300 rounded-pill" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" className="avatar-text avatar-md ms-auto">
-                                                        <i className="feather-arrow-right" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className="hstack gap-2">
-                                                        <span className="wd-10 ht-10 bg-gray-400 rounded-circle d-inline-block me-2 lh-base" />
-                                                        <div className="border-3 border-start rounded ps-3">
-                                                            <a href="javascript:void(0);" className="mb-2 d-block">
-                                                                <span>Duralux CRM Dashbaord Project</span>
-                                                            </a>
-                                                            <p className="fs-12 text-muted mb-0">Duralux CRM Dashbaord Project</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-soft-teal text-teal">Submitted</span>
-                                                </td>
-                                                <td>
-                                                    <div data-time-countdown="countdown_4" />
-                                                </td>
-                                                <td>
-                                                    <div className="hstack gap-1">
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-gray-300 rounded-pill" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" className="avatar-text avatar-md ms-auto">
-                                                        <i className="feather-arrow-right" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div className="hstack gap-2">
-                                                        <span className="wd-10 ht-10 bg-gray-400 rounded-circle d-inline-block me-2 lh-base" />
-                                                        <div className="border-3 border-start rounded ps-3">
-                                                            <a href="javascript:void(0);" className="mb-2 d-block">
-                                                                <span>Update User Flows with UX Feedback</span>
-                                                            </a>
-                                                            <p className="fs-12 text-muted mb-0">Update User Flows with UX Feedback</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-soft-warning text-warning">Working</span>
-                                                </td>
-                                                <td>
-                                                    <div data-time-countdown="countdown_5" />
-                                                </td>
-                                                <td>
-                                                    <div className="hstack gap-1">
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-success rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-warning rounded-pill opacity-75" />
-                                                        <div className="wd-15 ht-4 bg-gray-300 rounded-pill" />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" className="avatar-text avatar-md ms-auto">
-                                                        <i className="feather-arrow-right" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <a href="#" className="card-footer fs-11 fw-bold text-uppercase text-center py-4">Full Details</a>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className="card mb-4 stretch stretch-full">
+                            <div className="card-header d-flex align-items-center justify-content-between">
+                                <div className="d-flex gap-3 align-items-center">
+                                    <div className="avatar-text">
+                                        <i className="feather feather-star" />
+                                    </div>
+                                    <div>
+                                        <div className="fw-semibold text-dark">Tasks Completed</div>
+                                        <div className="fs-12 text-muted">22/35 completed</div>
+                                    </div>
                                 </div>
-                                <div className="card-footer">
-                                    <ul className="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style">
-                                        <li>
-                                            <a href="javascript:void(0);"><i className="bi bi-arrow-left" /></a>
-                                        </li>
-                                        <li><a href="javascript:void(0);" className="active">1</a></li>
-                                        <li><a href="javascript:void(0);">2</a></li>
-                                        <li>
-                                            <a href="javascript:void(0);"><i className="bi bi-dot" /></a>
-                                        </li>
-                                        <li><a href="javascript:void(0);">8</a></li>
-                                        <li><a href="javascript:void(0);">9</a></li>
-                                        <li>
-                                            <a href="javascript:void(0);"><i className="bi bi-arrow-right" /></a>
-                                        </li>
-                                    </ul>
+                                <div className="fs-4 fw-bold text-dark">22/35</div>
+                            </div>
+                            <div className="card-body d-flex align-items-center justify-content-between gap-4">
+                                <div id="task-completed-area-chart" />
+                                <div className="fs-12 text-muted text-nowrap">
+                                    <span className="fw-semibold text-primary">28% more</span><br />
+                                    <span>from last week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className="card mb-4 stretch stretch-full">
+                            <div className="card-header d-flex align-items-center justify-content-between">
+                                <div className="d-flex gap-3 align-items-center">
+                                    <div className="avatar-text">
+                                        <i className="feather feather-file-text" />
+                                    </div>
+                                    <div>
+                                        <div className="fw-semibold text-dark">New Tasks</div>
+                                        <div className="fs-12 text-muted">0/20 tasks</div>
+                                    </div>
+                                </div>
+                                <div className="fs-4 fw-bold text-dark">5/20</div>
+                            </div>
+                            <div className="card-body d-flex align-items-center justify-content-between gap-4">
+                                <div id="new-tasks-area-chart" />
+                                <div className="fs-12 text-muted text-nowrap">
+                                    <span className="fw-semibold text-success">34% more</span><br />
+                                    <span>from last week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className="card mb-4 stretch stretch-full">
+                            <div className="card-header d-flex align-items-center justify-content-between">
+                                <div className="d-flex gap-3 align-items-center">
+                                    <div className="avatar-text">
+                                        <i className="feather feather-airplay" />
+                                    </div>
+                                    <div>
+                                        <div className="fw-semibold text-dark">Project Done</div>
+                                        <div className="fs-12 text-muted">20/30 project</div>
+                                    </div>
+                                </div>
+                                <div className="fs-4 fw-bold text-dark">20/30</div>
+                            </div>
+                            <div className="card-body d-flex align-items-center justify-content-between gap-4">
+                                <div id="project-done-area-chart" />
+                                <div className="fs-12 text-muted text-nowrap">
+                                    <span className="fw-semibold text-danger">42% more</span><br />
+                                    <span>from last week</span>
                                 </div>
                             </div>
                         </div>
@@ -1039,41 +757,506 @@ const Home = () => {
                     <div className="col-xxl-4">
                         <div className="card stretch stretch-full">
                             <div className="card-header">
-                                <h5 className="card-title">Social Statistics</h5>
-                                <div className="card-header-action">
-                                    <div className="card-header-btn">
-                                        <div data-bs-toggle="tooltip" title="Delete">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-danger" data-bs-toggle="remove"> </a>
+                                <h5 className="card-title">Leads Overview</h5>
+                            </div>
+                            <div className="card-body custom-card-action">
+                                <div id="leads-overview-donut" />
+                                <div className="row g-2">
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#3454d1' }} />
+                                            <span>New<span className="fs-10 text-muted ms-1">(20K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#0d519e' }} />
+                                            <span>Contacted<span className="fs-10 text-muted ms-1">(15K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#1976d2' }} />
+                                            <span>Qualified<span className="fs-10 text-muted ms-1">(10K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#1e88e5' }} />
+                                            <span>Working<span className="fs-10 text-muted ms-1">(18K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#2196f3' }} />
+                                            <span>Customer<span className="fs-10 text-muted ms-1">(10K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#42a5f5' }} />
+                                            <span>Proposal<span className="fs-10 text-muted ms-1">(15K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#64b5f6' }} />
+                                            <span>Leads<span className="fs-10 text-muted ms-1">(16K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#90caf9' }} />
+                                            <span>Progress<span className="fs-10 text-muted ms-1">(14K)</span></span>
+                                        </a>
+                                    </div>
+                                    <div className="col-4">
+                                        <a href="#" className="p-2 hstack gap-2 rounded border border-dashed border-gray-5">
+                                            <span className="wd-7 ht-7 rounded-circle d-inline-block" style={{ backgroundColor: '#aad6fa' }} />
+                                            <span>Others<span className="fs-10 text-muted ms-1">(10K)</span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-8">
+                        <div className="card stretch stretch-full">
+                            <div className="card-header">
+                                <h5 className="card-title">Latest Leads</h5>
+                            </div>
+                            <div className="card-body custom-card-action p-0">
+                                <div className="table-responsive">
+                                    <table className="table table-hover mb-0">
+                                        <thead>
+                                            <tr className="border-b">
+                                                <th scope="row">Users</th>
+                                                <th>Proposal</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th className="text-end">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <div className="avatar-image">
+                                                            <img src="https://i.pravatar.cc/100?img=2" alt="image" className="img-fluid" />
+                                                        </div>
+                                                        <a href="#">
+                                                            <span className="d-block">Archie Cantones</span>
+                                                            <span className="fs-12 d-block fw-normal text-muted">arcie.tones@gmail.com</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span className="badge bg-gray-200 text-dark">Sent</span>
+                                                </td>
+                                                <td>11/06/2023 10:53</td>
+                                                <td>
+                                                    <span className="badge bg-soft-success text-success">Completed</span>
+                                                </td>
+                                                <td className="text-end">
+                                                    <a href="#"><i className="feather-more-vertical" /></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <div className="avatar-image">
+                                                            <img src="https://i.pravatar.cc/100?img=3" alt="image" className="img-fluid" />
+                                                        </div>
+                                                        <a href="#">
+                                                            <span className="d-block">Holmes Cherryman</span>
+                                                            <span className="fs-12 d-block fw-normal text-muted">golms.chan@gmail.com</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span className="badge bg-gray-200 text-dark">New</span>
+                                                </td>
+                                                <td>11/06/2023 10:53</td>
+                                                <td>
+                                                    <span className="badge bg-soft-primary text-primary">In Progress </span>
+                                                </td>
+                                                <td className="text-end">
+                                                    <a href="#"><i className="feather-more-vertical" /></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <div className="avatar-image">
+                                                            <img src="https://i.pravatar.cc/100?img=4" alt="image" className="img-fluid" />
+                                                        </div>
+                                                        <a href="#">
+                                                            <span className="d-block">Malanie Hanvey</span>
+                                                            <span className="fs-12 d-block fw-normal text-muted">lanie.nveyn@gmail.com</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span className="badge bg-gray-200 text-dark">Sent</span>
+                                                </td>
+                                                <td>11/06/2023 10:53</td>
+                                                <td>
+                                                    <span className="badge bg-soft-success text-success">Completed</span>
+                                                </td>
+                                                <td className="text-end">
+                                                    <a href="#"><i className="feather-more-vertical" /></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <div className="avatar-image">
+                                                            <img src="https://i.pravatar.cc/100?img=5" alt="image" className="img-fluid" />
+                                                        </div>
+                                                        <a href="#">
+                                                            <span className="d-block">Kenneth Hune</span>
+                                                            <span className="fs-12 d-block fw-normal text-muted">nneth.une@gmail.com</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span className="badge bg-gray-200 text-dark">Returning</span>
+                                                </td>
+                                                <td>11/06/2023 10:53</td>
+                                                <td>
+                                                    <span className="badge bg-soft-warning text-warning">Not Interested</span>
+                                                </td>
+                                                <td className="text-end">
+                                                    <a href="#"><i className="feather-more-vertical" /></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <div className="avatar-image">
+                                                            <img src="https://i.pravatar.cc/100?img=6" alt="image" className="img-fluid" />
+                                                        </div>
+                                                        <a href="#">
+                                                            <span className="d-block">Valentine Maton</span>
+                                                            <span className="fs-12 d-block fw-normal text-muted">alenine.aton@gmail.com</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span className="badge bg-gray-200 text-dark">Sent</span>
+                                                </td>
+                                                <td>11/06/2023 10:53</td>
+                                                <td>
+                                                    <span className="badge bg-soft-success text-success">Completed</span>
+                                                </td>
+                                                <td className="text-end">
+                                                    <a href="#"><i className="feather-more-vertical" /></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="card-footer">
+                                <ul className="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style">
+                                    <li>
+                                        <a href="#"><i className="bi bi-arrow-left" /></a>
+                                    </li>
+                                    <li><a href="#" className="active">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li>
+                                        <a href="#"><i className="bi bi-dot" /></a>
+                                    </li>
+                                    <li><a href="#">8</a></li>
+                                    <li><a href="#">9</a></li>
+                                    <li>
+                                        <a href="#"><i className="bi bi-arrow-right" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-4">
+                        <div className="card stretch stretch-full">
+                            <div className="card-header">
+                                <h5 className="card-title">Upcoming Schedule</h5>
+                            </div>
+                            <div className="card-body">
+                                <div className="p-3 border border-dashed rounded-3 mb-3">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex align-items-center gap-3">
+                                            <div className="wd-50 ht-50 bg-soft-primary text-primary lh-1 d-flex align-items-center justify-content-center flex-column rounded-2 schedule-date">
+                                                <span className="fs-18 fw-bold mb-1 d-block">20</span>
+                                                <span className="fs-10 fw-semibold text-uppercase d-block">Dec</span>
+                                            </div>
+                                            <div className="text-dark">
+                                                <a href="#" className="fw-bold mb-2 text-truncate-1-line">React Dashboard Design</a>
+                                                <span className="fs-11 fw-normal text-muted text-truncate-1-line">11:30am - 12:30pm</span>
+                                            </div>
                                         </div>
-                                        <div data-bs-toggle="tooltip" title="Refresh">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-warning" data-bs-toggle="refresh"> </a>
-                                        </div>
-                                        <div data-bs-toggle="tooltip" title="Maximize/Minimize">
-                                            <a href="javascript:void(0);" className="avatar-text avatar-xs bg-success" data-bs-toggle="expand"> </a>
+                                        <div className="img-group lh-0 ms-3 justify-content-start d-none d-sm-flex">
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Janette Dalton">
+                                                <img src="https://i.pravatar.cc/100?img=2" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Michael Ksen">
+                                                <img src="https://i.pravatar.cc/100?img=3" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Socrates Itumay">
+                                                <img src="https://i.pravatar.cc/100?img=4" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=6" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Explorer More">
+                                                <i className="feather-more-horizontal" />
+                                            </a>
                                         </div>
                                     </div>
-                                    <div className="dropdown">
-                                        <a href="javascript:void(0);" className="avatar-text avatar-sm" data-bs-toggle="dropdown" data-bs-offset="25, 25">
-                                            <div data-bs-toggle="tooltip" title="Options">
-                                                <i className="feather-more-vertical" />
+                                </div>
+                                <div className="p-3 border border-dashed rounded-3 mb-3">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex align-items-center gap-3">
+                                            <div className="wd-50 ht-50 bg-soft-warning text-warning lh-1 d-flex align-items-center justify-content-center flex-column rounded-2 schedule-date">
+                                                <span className="fs-18 fw-bold mb-1 d-block">30</span>
+                                                <span className="fs-10 fw-semibold text-uppercase d-block">Dec</span>
                                             </div>
-                                        </a>
-                                        <div className="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-at-sign" />New</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-calendar" />Event</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-bell" />Snoozed</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-trash-2" />Deleted</a>
-                                            <div className="dropdown-divider" />
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-settings" />Settings</a>
-                                            <a href="javascript:void(0);" className="dropdown-item"><i className="feather-life-buoy" />Tips &amp; Tricks</a>
+                                            <div className="text-dark">
+                                                <a href="#" className="fw-bold mb-2 text-truncate-1-line">Admin Design Concept</a>
+                                                <span className="fs-11 fw-normal text-muted text-truncate-1-line">10:00am - 12:00pm</span>
+                                            </div>
+                                        </div>
+                                        <div className="img-group lh-0 ms-3 justify-content-start d-none d-sm-flex">
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Janette Dalton">
+                                                <img src="https://i.pravatar.cc/100?img=2" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Michael Ksen">
+                                                <img src="https://i.pravatar.cc/100?img=3" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=5" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=6" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Explorer More">
+                                                <i className="feather-more-horizontal" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-3 border border-dashed rounded-3 mb-3">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex align-items-center gap-3">
+                                            <div className="wd-50 ht-50 bg-soft-success text-success lh-1 d-flex align-items-center justify-content-center flex-column rounded-2 schedule-date">
+                                                <span className="fs-18 fw-bold mb-1 d-block">17</span>
+                                                <span className="fs-10 fw-semibold text-uppercase d-block">Dec</span>
+                                            </div>
+                                            <div className="text-dark">
+                                                <a href="#" className="fw-bold mb-2 text-truncate-1-line">Standup Team Meeting</a>
+                                                <span className="fs-11 fw-normal text-muted text-truncate-1-line">8:00am - 9:00am</span>
+                                            </div>
+                                        </div>
+                                        <div className="img-group lh-0 ms-3 justify-content-start d-none d-sm-flex">
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Janette Dalton">
+                                                <img src="https://i.pravatar.cc/100?img=2" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Michael Ksen">
+                                                <img src="https://i.pravatar.cc/100?img=3" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Socrates Itumay">
+                                                <img src="https://i.pravatar.cc/100?img=4" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=5" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Explorer More">
+                                                <i className="feather-more-horizontal" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-3 border border-dashed rounded-3 mb-2">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex align-items-center gap-3">
+                                            <div className="wd-50 ht-50 bg-soft-danger text-danger lh-1 d-flex align-items-center justify-content-center flex-column rounded-2 schedule-date">
+                                                <span className="fs-18 fw-bold mb-1 d-block">25</span>
+                                                <span className="fs-10 fw-semibold text-uppercase d-block">Dec</span>
+                                            </div>
+                                            <div className="text-dark">
+                                                <a href="#" className="fw-bold mb-2 text-truncate-1-line">Zoom Team Meeting</a>
+                                                <span className="fs-11 fw-normal text-muted text-truncate-1-line">03:30pm - 05:30pm</span>
+                                            </div>
+                                        </div>
+                                        <div className="img-group lh-0 ms-3 justify-content-start d-none d-sm-flex">
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Janette Dalton">
+                                                <img src="https://i.pravatar.cc/100?img=2" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Socrates Itumay">
+                                                <img src="https://i.pravatar.cc/100?img=4" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=5" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-image avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Marianne Audrey">
+                                                <img src="https://i.pravatar.cc/100?img=6" className="img-fluid" alt="image" />
+                                            </a>
+                                            <a href="#" className="avatar-text avatar-md" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Explorer More">
+                                                <i className="feather-more-horizontal" />
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body">
-                                <div id="social-radar-chart" />
+                            <a href="#" className="card-footer fs-11 fw-bold text-uppercase text-center py-4">Upcomming Schedule</a>
+                        </div>
+                    </div>
+                    <div className="col-xxl-4">
+                        <div className="card stretch stretch-full">
+                            <div className="card-header">
+                                <h5 className="card-title">Project Status</h5>
                             </div>
-                            <a href="javascript:void(0);" className="card-footer fs-11 fw-bold text-uppercase text-center">Explore Details</a>
+                            <div className="card-body custom-card-action">
+                                <div className="mb-3">
+                                    <div className="mb-4 pb-1 d-flex">
+                                        <div className="d-flex w-50 align-items-center me-3">
+                                            <img src="/images/brand/app-store.png" alt="laravel-logo" className="me-3" width={35} />
+                                            <div>
+                                                <a href="#" className="text-truncate-1-line">Apps Development</a>
+                                                <div className="fs-11 text-muted">Applications</div>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-grow-1 align-items-center">
+                                            <div className="progress w-100 me-3 ht-5">
+                                                <div className="progress-bar bg-danger" role="progressbar" style={{ width: '54%' }} aria-valuenow={54} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                            <span className="text-muted">54%</span>
+                                        </div>
+                                    </div>
+                                    <hr className="border-dashed my-3" />
+                                    <div className="mb-4 pb-1 d-flex">
+                                        <div className="d-flex w-50 align-items-center me-3">
+                                            <img src="/images/brand/figma.png" alt="figma-logo" className="me-3" width={35} />
+                                            <div>
+                                                <a href="#" className="text-truncate-1-line">Dashboard Design</a>
+                                                <div className="fs-11 text-muted">App UI Kit</div>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-grow-1 align-items-center">
+                                            <div className="progress w-100 me-3 ht-5">
+                                                <div className="progress-bar bg-primary" role="progressbar" style={{ width: '86%' }} aria-valuenow={86} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                            <span className="text-muted">86%</span>
+                                        </div>
+                                    </div>
+                                    <hr className="border-dashed my-3" />
+                                    <div className="mb-4 pb-1 d-flex">
+                                        <div className="d-flex w-50 align-items-center me-3">
+                                            <img src="/images/brand/facebook.png" alt="vue-logo" className="me-3" width={35} />
+                                            <div>
+                                                <a href="#" className="text-truncate-1-line">Facebook Marketing</a>
+                                                <div className="fs-11 text-muted">Marketing</div>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-grow-1 align-items-center">
+                                            <div className="progress w-100 me-3 ht-5">
+                                                <div className="progress-bar bg-success" role="progressbar" style={{ width: '90%' }} aria-valuenow={90} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                            <span className="text-muted">90%</span>
+                                        </div>
+                                    </div>
+                                    <hr className="border-dashed my-3" />
+                                    <div className="mb-4 pb-1 d-flex">
+                                        <div className="d-flex w-50 align-items-center me-3">
+                                            <img src="/images/brand/github.png" alt="react-logo" className="me-3" width={35} />
+                                            <div>
+                                                <a href="#" className="text-truncate-1-line">React Dashboard Github</a>
+                                                <div className="fs-11 text-muted">Dashboard</div>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-grow-1 align-items-center">
+                                            <div className="progress w-100 me-3 ht-5">
+                                                <div className="progress-bar bg-info" role="progressbar" style={{ width: '37%' }} aria-valuenow={37} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                            <span className="text-muted">37%</span>
+                                        </div>
+                                    </div>
+                                    <hr className="border-dashed my-3" />
+                                    <div className="d-flex">
+                                        <div className="d-flex w-50 align-items-center me-3">
+                                            <img src="/images/brand/paypal.png" alt="sketch-logo" className="me-3" width={35} />
+                                            <div>
+                                                <a href="#" className="text-truncate-1-line">Paypal Payment Gateway</a>
+                                                <div className="fs-11 text-muted">Payment</div>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-grow-1 align-items-center">
+                                            <div className="progress w-100 me-3 ht-5">
+                                                <div className="progress-bar bg-warning" role="progressbar" style={{ width: '29%' }} aria-valuenow={29} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                            <span className="text-muted">29%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" className="card-footer fs-11 fw-bold text-uppercase text-center">Upcomming Projects</a>
+                        </div>
+                    </div>
+                    <div className="col-xxl-4">
+                        <div className="card stretch stretch-full">
+                            <div className="card-header">
+                                <h5 className="card-title">Team Progress</h5>
+                            </div>
+                            <div className="card-body custom-card-action">
+                                <div className="hstack justify-content-between border border-dashed rounded-3 p-3 mb-3">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image">
+                                            <img src="https://i.pravatar.cc/100?img=1" alt="image" className="img-fluid" />
+                                        </div>
+                                        <div>
+                                            <a href="#">Alexandra Della</a>
+                                            <div className="fs-11 text-muted">Frontend Developer</div>
+                                        </div>
+                                    </div>
+                                    <div className="team-progress-1" />
+                                </div>
+                                <div className="hstack justify-content-between border border-dashed rounded-3 p-3 mb-3">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image">
+                                            <img src="https://i.pravatar.cc/100?img=2" alt="image" className="img-fluid" />
+                                        </div>
+                                        <div>
+                                            <a href="#">Archie Cantones</a>
+                                            <div className="fs-11 text-muted">UI/UX Designer</div>
+                                        </div>
+                                    </div>
+                                    <div className="team-progress-2" />
+                                </div>
+                                <div className="hstack justify-content-between border border-dashed rounded-3 p-3 mb-3">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image">
+                                            <img src="https://i.pravatar.cc/100?img=3" alt="image" className="img-fluid" />
+                                        </div>
+                                        <div>
+                                            <a href="#">Malanie Hanvey</a>
+                                            <div className="fs-11 text-muted">Backend Developer</div>
+                                        </div>
+                                    </div>
+                                    <div className="team-progress-3" />
+                                </div>
+                                <div className="hstack justify-content-between border border-dashed rounded-3 p-3 mb-2">
+                                    <div className="hstack gap-3">
+                                        <div className="avatar-image">
+                                            <img src="https://i.pravatar.cc/100?img=4" alt="image" className="img-fluid" />
+                                        </div>
+                                        <div>
+                                            <a href="#">Kenneth Hune</a>
+                                            <div className="fs-11 text-muted">Digital Marketer</div>
+                                        </div>
+                                    </div>
+                                    <div className="team-progress-4" />
+                                </div>
+                            </div>
+                            <a href="#" className="card-footer fs-11 fw-bold text-uppercase text-center">Update 30 Min Ago</a>
                         </div>
                     </div>
                 </div>

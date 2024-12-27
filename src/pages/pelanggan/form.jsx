@@ -26,9 +26,7 @@ const Form = () => {
         <Dashboard>
             <div className="page-header">
                 <div className="page-header-left d-flex align-items-center">
-                    <div className="page-header-title">
-                        <h5 className="m-b-10">Alexandra Della</h5>
-                    </div>
+
                     <ul className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/pelanggan">Pelanggan</Link></li>
                         <li className="breadcrumb-item">Formulir Pelanggan</li>
