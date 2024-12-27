@@ -1,5 +1,10 @@
+import { useEffect } from "react"
+import { useRef } from "react"
+
 const Sidebar = () => {
-    const fullScreenHelper = (el) => {
+    const menuOverlay = useRef()
+
+    const fullScreenHelper = () => {
         if (document.fullscreenElement) {
             document.exitFullscreen()
             document.querySelector('.feather-maximize').style.display = 'block'
@@ -23,15 +28,34 @@ const Sidebar = () => {
     }
 
     const expandSidebarMobile = () => {
-        document.querySelector('nxl-navigation').classList.toggle('mob-navigation-active')
-        // if (document.querySelector('html').classList.contains('minimenu')) {
-        //     document.querySelector('#menu-expend-button').style.display = 'block'
-        //     document.querySelector('#menu-mini-button').style.display = 'none'
-        // } else {
-        //     document.querySelector('#menu-expend-button').style.display = 'none'
-        //     document.querySelector('#menu-mini-button').style.display = 'block'
-        // }
+        document.querySelector('.nxl-navigation').classList.toggle('mob-navigation-active')
+        document.querySelector('.nxl-navigation').append(menuOverlay.current)
+        document.querySelector('.hamburger').classList.toggle('is-active')
+
+        menuOverlay.current.addEventListener('click', () => {
+            document.querySelector('.nxl-navigation').classList.remove('mob-navigation-active')
+            document.querySelector('.hamburger').classList.remove('is-active')
+            menuOverlay.current.remove()
+        })
     }
+
+    const switchTheme = () => {
+        if (document.querySelector('html').classList.contains('app-skin-dark')) {
+            document.querySelector('html').classList.remove('app-skin-dark')
+            document.querySelector('html').classList.add('app-skin-light')
+            localStorage.setItem('app-skin-dark', 'app-skin-light')
+        } else {
+            document.querySelector('html').classList.remove('app-skin-light')
+            document.querySelector('html').classList.add('app-skin-dark')
+            localStorage.setItem('app-skin-dark', 'app-skin-dark')
+        }
+    }
+
+    useEffect(() => {
+        if (menuOverlay.current) {
+            menuOverlay.current.remove()
+        }
+    })
 
     return (
         <header className="nxl-header">
@@ -52,19 +76,7 @@ const Sidebar = () => {
                             <i className="feather-arrow-right" />
                         </div>
                     </div>
-                    <div className="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
-                        <div role="button" id="nxl-lavel-mega-menu-open">
-                            <i className="feather-align-left" />
-                        </div>
-                    </div>
-                    <div className="nxl-drp-link nxl-lavel-mega-menu">
-                        <div className="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
-                            <div role="button" id="nxl-lavel-mega-menu-hide">
-                                <i className="feather-arrow-left me-2" />
-                                <span>Back</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div className="header-right ms-auto">
                     <div className="d-flex align-items-center">
@@ -180,7 +192,7 @@ const Sidebar = () => {
                                         <div className="d-flex align-items-center justify-content-between mb-4">
                                             <div className="d-flex align-items-center gap-3">
                                                 <div className="avatar-image rounded">
-                                                    <img src="/images/avatar/3.png" alt="Image" className="img-fluid" />
+                                                    <img src="https://i.pravatar.cc/100?img=3" alt="Image" className="img-fluid" />
                                                 </div>
                                                 <div>
                                                     <div role="button" className="font-body fw-bold d-block mb-1">Malanie Hanvey</div>
@@ -194,7 +206,7 @@ const Sidebar = () => {
                                         <div className="d-flex align-items-center justify-content-between mb-4">
                                             <div className="d-flex align-items-center gap-3">
                                                 <div className="avatar-image rounded">
-                                                    <img src="/images/avatar/4.png" alt="Image" className="img-fluid" />
+                                                    <img src="https://i.pravatar.cc/100?img=4" alt="Image" className="img-fluid" />
                                                 </div>
                                                 <div>
                                                     <div role="button" className="font-body fw-bold d-block mb-1">Kenneth Hune</div>
@@ -208,7 +220,7 @@ const Sidebar = () => {
                                         <div className="d-flex align-items-center justify-content-between mb-0">
                                             <div className="d-flex align-items-center gap-3">
                                                 <div className="avatar-image rounded">
-                                                    <img src="/images/avatar/5.png" alt="Image" className="img-fluid" />
+                                                    <img src="https://i.pravatar.cc/100?img=5" alt="Image" className="img-fluid" />
                                                 </div>
                                                 <div>
                                                     <div role="button" className="font-body fw-bold d-block mb-1">Archie Cantones</div>
@@ -297,17 +309,17 @@ const Sidebar = () => {
                         </div>
                         <div className="nxl-h-item d-none d-sm-flex">
                             <div className="full-screen-switcher">
-                                <div role="button" className="nxl-head-link me-0" onClick={(el) => fullScreenHelper(el)}>
+                                <div role="button" className="nxl-head-link me-0" onClick={fullScreenHelper}>
                                     <i className="feather-maximize maximize" />
                                     <i className="feather-minimize minimize" style={{ display: 'none' }} />
                                 </div>
                             </div>
                         </div>
                         <div className="nxl-h-item dark-light-theme">
-                            <div role="button" className="nxl-head-link me-0 dark-button">
+                            <div role="button" className="nxl-head-link me-0 dark-button" onClick={switchTheme}>
                                 <i className="feather-moon" />
                             </div>
-                            <div role="button" className="nxl-head-link me-0 light-button" style={{ display: 'none' }}>
+                            <div role="button" className="nxl-head-link me-0 light-button" onClick={switchTheme} style={{ display: 'none' }}>
                                 <i className="feather-sun" />
                             </div>
                         </div>
@@ -341,7 +353,7 @@ const Sidebar = () => {
                                     </div>
                                 </div>
                                 <div className="notifications-item">
-                                    <img src="/images/avatar/3.png" alt="Image" className="rounded me-3 border" />
+                                    <img src="https://i.pravatar.cc/100?img=3" alt="Image" className="rounded me-3 border" />
                                     <div className="notifications-desc">
                                         <div role="button" className="font-body text-truncate-2-line"> <span className="fw-semibold text-dark">Valentine Maton</span> You can download the latest invoices now.</div>
                                         <div className="d-flex justify-content-between align-items-center">
@@ -356,7 +368,7 @@ const Sidebar = () => {
                                     </div>
                                 </div>
                                 <div className="notifications-item">
-                                    <img src="/images/avatar/4.png" alt="Image" className="rounded me-3 border" />
+                                    <img src="https://i.pravatar.cc/100?img=4" alt="Image" className="rounded me-3 border" />
                                     <div className="notifications-desc">
                                         <div role="button" className="font-body text-truncate-2-line"> <span className="fw-semibold text-dark">Archie Cantones</span>Forget to pickup Jeremy after school!</div>
                                         <div className="d-flex justify-content-between align-items-center">
@@ -517,6 +529,7 @@ const Sidebar = () => {
                     </div>
                 </div>
             </div>
+            <div className="nxl-menu-overlay" ref={menuOverlay}></div>
         </header >
     )
 }
